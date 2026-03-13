@@ -19,6 +19,52 @@ window.addEventListener('load', () => {
     }, 1000);
 });
 
+// Interactive Background Particles
+const canvas = document.createElement('canvas');
+canvas.id = 'bg-particles';
+document.body.appendChild(canvas);
+const ctx = canvas.getContext('2d');
+
+let particles = [];
+const particleCount = 60;
+
+function initParticles() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    particles = [];
+    for (let i = 0; i < particleCount; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 1,
+            speedX: Math.random() * 1 - 0.5,
+            speedY: Math.random() * 1 - 0.5,
+            opacity: Math.random() * 0.5 + 0.2
+        });
+    }
+}
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(34, 197, 94, ${p.opacity})`;
+        ctx.fill();
+    });
+    requestAnimationFrame(animateParticles);
+}
+
+initParticles();
+animateParticles();
+window.addEventListener('resize', initParticles);
+
 // Custom Cursor
 const cursorDot = document.createElement('div');
 const cursorOutline = document.createElement('div');
@@ -34,14 +80,24 @@ window.addEventListener('mousemove', (e) => {
     cursorDot.style.left = `${posX}px`;
     cursorDot.style.top = `${posY}px`;
 
-    // Outline with slight lag
     cursorOutline.animate({
         left: `${posX}px`,
         top: `${posY}px`
     }, { duration: 500, fill: "forwards" });
 });
 
-// Cursor Scale on Links
+// Interactive Image Spotlight tracking
+document.querySelectorAll('.gallery-item, .service-detail img').forEach(item => {
+    item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        item.style.setProperty('--mouse-x', `${x}px`);
+        item.style.setProperty('--mouse-y', `${y}px`);
+    });
+});
+
+// Cursor Scale & Magnetic Interaction
 const interactiveElements = document.querySelectorAll('a, button, .service-card, .gallery-item, .stat-card');
 interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
@@ -59,7 +115,7 @@ interactiveElements.forEach(el => {
 });
 
 // Magnetic Buttons & 3D Tilt for Cards
-const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .logo');
+const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .logo, .nav-links li a');
 magneticElements.forEach(el => {
     el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
@@ -72,6 +128,23 @@ magneticElements.forEach(el => {
     });
 });
 
+// Button Ripple Effect
+document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(button => {
+    button.addEventListener('mousedown', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+    });
+});
+
 // 3D Tilt and Mouse Glow for Glass Cards
 const glassCards = document.querySelectorAll('.glass, .glass-premium');
 glassCards.forEach(card => {
@@ -80,11 +153,9 @@ glassCards.forEach(card => {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        // Radial glow position
         card.style.setProperty('--x', `${(x / rect.width) * 100}%`);
         card.style.setProperty('--y', `${(y / rect.height) * 100}%`);
 
-        // 3D Tilt logic
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         const rotateX = (y - centerY) / 15;
@@ -145,7 +216,6 @@ const revealObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
             
-            // If it's a stat number, start counter
             if (entry.target.classList.contains('stat-number')) {
                 animateCounter(entry.target);
             }
@@ -155,11 +225,9 @@ const revealObserver = new IntersectionObserver((entries) => {
     });
 }, obsOptions);
 
-// Select all elements to reveal
-const revealElements = document.querySelectorAll('.service-card, .feature-card, .gallery-item, .testimonial-card, .section-header, .about-content, .about-image, .stat-card, footer, h1, h2');
+const revealElements = document.querySelectorAll('.service-card, .feature-card, .gallery-item, .testimonial-card, .section-header, .about-content, .about-image, .stat-card, footer, h1, h2, .service-detail');
 revealElements.forEach((el, index) => {
     el.classList.add('reveal');
-    // Stagger effect
     el.style.transitionDelay = `${(index % 3) * 0.1}s`;
     revealObserver.observe(el);
 });

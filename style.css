@@ -6,7 +6,7 @@
   --glass-border: rgba(255, 255, 255, 0.1);
   --accent-green: #22c55e;
   --accent-neon: #a3ff33;
-  --accent-glow: rgba(34, 197, 94, 0.2);
+  --accent-glow: rgba(34, 197, 94, 0.3);
   --text-white: #ffffff;
   --text-gray: #a1a1aa;
   --nav-height: 80px;
@@ -30,6 +30,14 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   cursor: none; /* Hide default cursor */
+}
+
+#bg-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.5;
 }
 
 /* Custom Cursor */
@@ -222,6 +230,53 @@ h1, h2, h3, h4, h5, h6 {
 
 .reveal.active .split-text span {
   transform: translateY(0);
+}
+
+/* Image Spotlight Effect */
+.gallery-item, .service-detail img {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.gallery-item img {
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+  filter: brightness(1.2) contrast(1.1);
+}
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(34, 197, 94, 0.2) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+
+.gallery-item:hover::after {
+  opacity: 1;
+}
+
+/* Button Ripple Interaction */
+.ripple {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-effect 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
 }
 
 /* Navbar */
