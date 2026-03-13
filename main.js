@@ -3,7 +3,7 @@ lucide.createIcons();
 
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-// Luxury Loader Injection
+// Luxury Loader Injection Logic
 const loader = document.createElement('div');
 loader.id = 'loader';
 loader.innerHTML = `
@@ -18,7 +18,7 @@ window.addEventListener('load', () => {
     setTimeout(() => {
         loader.style.opacity = '0';
         setTimeout(() => loader.remove(), 800);
-    }, 1000);
+    }, 500);
 });
 
 // Mobile Menu Toggle
@@ -257,20 +257,16 @@ window.addEventListener('scroll', () => {
     lastScrollY = window.scrollY;
 });
 
-// Enhanced Intersection Observer for Reveals
-const obsOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
-};
-
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
             
-            // Add slight haptic when section reveals (optional, maybe too much)
-            // if (isTouchDevice && navigator.vibrate) navigator.vibrate(5);
-
+            // If the element contains stat numbers, animate them
+            const stats = entry.target.querySelectorAll('.stat-number');
+            stats.forEach(stat => animateCounter(stat));
+            
+            // If the element itself is a stat number
             if (entry.target.classList.contains('stat-number')) {
                 animateCounter(entry.target);
             }
@@ -280,7 +276,7 @@ const revealObserver = new IntersectionObserver((entries) => {
     });
 }, obsOptions);
 
-const revealElements = document.querySelectorAll('.service-card, .feature-card, .gallery-item, .testimonial-card, .section-header, .about-content, .about-image, .stat-card, footer, h1, h2, .service-detail');
+const revealElements = document.querySelectorAll('.service-card, .feature-card, .gallery-item, .testimonial-card, .section-header, .about-content, .about-image, .stat-number, .stat-card, footer, h1, h2, .service-detail');
 revealElements.forEach((el, index) => {
     el.classList.add('reveal');
     el.style.transitionDelay = `${(index % 3) * 0.1}s`;
@@ -289,8 +285,12 @@ revealElements.forEach((el, index) => {
 
 // Stat Counters Logic
 function animateCounter(el) {
+    if (el.classList.contains('counting')) return;
+    
     const target = parseInt(el.getAttribute('data-target'));
     if (isNaN(target)) return;
+    
+    el.classList.add('counting');
     let count = 0;
     const duration = 2000;
     const increment = target / (duration / 16);
