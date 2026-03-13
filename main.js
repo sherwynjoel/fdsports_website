@@ -58,18 +58,57 @@ interactiveElements.forEach(el => {
     });
 });
 
-// Magnetic Buttons Effect
+// Magnetic Buttons & 3D Tilt for Cards
 const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .logo');
 magneticElements.forEach(el => {
     el.addEventListener('mousemove', (e) => {
         const rect = el.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        
         el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
     });
     el.addEventListener('mouseleave', () => {
         el.style.transform = `translate(0px, 0px)`;
+    });
+});
+
+// 3D Tilt and Mouse Glow for Glass Cards
+const glassCards = document.querySelectorAll('.glass, .glass-premium');
+glassCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Radial glow position
+        card.style.setProperty('--x', `${(x / rect.width) * 100}%`);
+        card.style.setProperty('--y', `${(y / rect.height) * 100}%`);
+
+        // 3D Tilt logic
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 15;
+        const rotateY = (centerX - x) / 15;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+    });
+});
+
+// Header Text Split Animation
+const headers = document.querySelectorAll('h1, h2');
+headers.forEach(header => {
+    const text = header.textContent;
+    header.innerHTML = '';
+    const words = text.split(' ');
+    words.forEach(word => {
+        const span = document.createElement('span');
+        span.className = 'split-text';
+        span.innerHTML = `<span style="display:inline-block">${word}</span>&nbsp;`;
+        header.appendChild(span);
     });
 });
 
@@ -117,7 +156,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, obsOptions);
 
 // Select all elements to reveal
-const revealElements = document.querySelectorAll('.service-card, .feature-card, .gallery-item, .testimonial-card, .section-header, .about-content, .about-image, .stat-card, footer');
+const revealElements = document.querySelectorAll('.service-card, .feature-card, .gallery-item, .testimonial-card, .section-header, .about-content, .about-image, .stat-card, footer, h1, h2');
 revealElements.forEach((el, index) => {
     el.classList.add('reveal');
     // Stagger effect
@@ -128,6 +167,7 @@ revealElements.forEach((el, index) => {
 // Stat Counters Logic
 function animateCounter(el) {
     const target = parseInt(el.getAttribute('data-target'));
+    if (isNaN(target)) return;
     let count = 0;
     const duration = 2000;
     const increment = target / (duration / 16);
