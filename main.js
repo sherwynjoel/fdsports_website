@@ -1,6 +1,8 @@
 // Initialize Lucide icons
 lucide.createIcons();
 
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
 // Luxury Loader Injection
 const loader = document.createElement('div');
 loader.id = 'loader';
@@ -19,118 +21,171 @@ window.addEventListener('load', () => {
     }, 1000);
 });
 
-// Interactive Background Particles
-const canvas = document.createElement('canvas');
-canvas.id = 'bg-particles';
-document.body.appendChild(canvas);
-const ctx = canvas.getContext('2d');
+// Mobile Menu Toggle
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
 
-let particles = [];
-const particleCount = 60;
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        if (navLinks.classList.contains('active')) {
+            icon.setAttribute('data-lucide', 'x');
+        } else {
+            icon.setAttribute('data-lucide', 'menu');
+        }
+        lucide.createIcons();
+    });
+}
 
-function initParticles() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    particles = [];
-    for (let i = 0; i < particleCount; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 2 + 1,
-            speedX: Math.random() * 1 - 0.5,
-            speedY: Math.random() * 1 - 0.5,
-            opacity: Math.random() * 0.5 + 0.2
-        });
+// Close mobile menu on link click
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.setAttribute('data-lucide', 'menu');
+        lucide.createIcons();
+    });
+});
+
+// Interactive Background Particles (Only on Desktop for performance)
+if (!isTouchDevice) {
+    const canvas = document.createElement('canvas');
+    canvas.id = 'bg-particles';
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const particleCount = 60;
+
+    function initParticles() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 1,
+                speedX: Math.random() * 1 - 0.5,
+                speedY: Math.random() * 1 - 0.5,
+                opacity: Math.random() * 0.5 + 0.2
+            });
+        }
     }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.x += p.speedX;
+            p.y += p.speedY;
+
+            if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(34, 197, 94, ${p.opacity})`;
+            ctx.fill();
+        });
+        requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+    window.addEventListener('resize', initParticles);
+
+    // Custom Cursor
+    const cursorDot = document.createElement('div');
+    const cursorOutline = document.createElement('div');
+    cursorDot.className = 'cursor-dot';
+    cursorOutline.className = 'cursor-outline';
+    document.body.appendChild(cursorDot);
+    document.body.appendChild(cursorOutline);
+
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: "forwards" });
+    });
+
+    // Interactive Image Spotlight tracking
+    document.querySelectorAll('.gallery-item, .service-detail img').forEach(item => {
+        item.addEventListener('mousemove', (e) => {
+            const rect = item.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            item.style.setProperty('--mouse-x', `${x}px`);
+            item.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+
+    // Cursor Scale & Magnetic Interaction
+    const interactiveElements = document.querySelectorAll('a, button, .service-card, .gallery-item, .stat-card');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorOutline.style.width = '60px';
+            cursorOutline.style.height = '60px';
+            cursorOutline.style.backgroundColor = 'rgba(34, 197, 94, 0.1)';
+            cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorOutline.style.width = '40px';
+            cursorOutline.style.height = '40px';
+            cursorOutline.style.backgroundColor = 'transparent';
+            cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+    });
+
+    // Magnetic Buttons & 3D Tilt for Cards
+    const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .logo, .nav-links li a');
+    magneticElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        el.addEventListener('mouseleave', () => {
+            el.style.transform = `translate(0px, 0px)`;
+        });
+    });
+
+    // 3D Tilt and Mouse Glow for Glass Cards
+    const glassCards = document.querySelectorAll('.glass, .glass-premium');
+    glassCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            card.style.setProperty('--x', `${(x / rect.width) * 100}%`);
+            card.style.setProperty('--y', `${(y / rect.height) * 100}%`);
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 15;
+            const rotateY = (centerX - x) / 15;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+        });
+    });
 }
-
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-        p.x += p.speedX;
-        p.y += p.speedY;
-
-        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(34, 197, 94, ${p.opacity})`;
-        ctx.fill();
-    });
-    requestAnimationFrame(animateParticles);
-}
-
-initParticles();
-animateParticles();
-window.addEventListener('resize', initParticles);
-
-// Custom Cursor
-const cursorDot = document.createElement('div');
-const cursorOutline = document.createElement('div');
-cursorDot.className = 'cursor-dot';
-cursorOutline.className = 'cursor-outline';
-document.body.appendChild(cursorDot);
-document.body.appendChild(cursorOutline);
-
-window.addEventListener('mousemove', (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
-
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
-
-    cursorOutline.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-    }, { duration: 500, fill: "forwards" });
-});
-
-// Interactive Image Spotlight tracking
-document.querySelectorAll('.gallery-item, .service-detail img').forEach(item => {
-    item.addEventListener('mousemove', (e) => {
-        const rect = item.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        item.style.setProperty('--mouse-x', `${x}px`);
-        item.style.setProperty('--mouse-y', `${y}px`);
-    });
-});
-
-// Cursor Scale & Magnetic Interaction
-const interactiveElements = document.querySelectorAll('a, button, .service-card, .gallery-item, .stat-card');
-interactiveElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        cursorOutline.style.width = '60px';
-        cursorOutline.style.height = '60px';
-        cursorOutline.style.backgroundColor = 'rgba(34, 197, 94, 0.1)';
-        cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
-    });
-    el.addEventListener('mouseleave', () => {
-        cursorOutline.style.width = '40px';
-        cursorOutline.style.height = '40px';
-        cursorOutline.style.backgroundColor = 'transparent';
-        cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
-    });
-});
-
-// Magnetic Buttons & 3D Tilt for Cards
-const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .logo, .nav-links li a');
-magneticElements.forEach(el => {
-    el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-    });
-    el.addEventListener('mouseleave', () => {
-        el.style.transform = `translate(0px, 0px)`;
-    });
-});
 
 // Button Ripple Effect
 document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(button => {
-    button.addEventListener('mousedown', function(e) {
+    button.addEventListener('pointerdown', function(e) {
         const rect = this.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -142,30 +197,6 @@ document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(butt
         
         this.appendChild(ripple);
         setTimeout(() => ripple.remove(), 600);
-    });
-});
-
-// 3D Tilt and Mouse Glow for Glass Cards
-const glassCards = document.querySelectorAll('.glass, .glass-premium');
-glassCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        card.style.setProperty('--x', `${(x / rect.width) * 100}%`);
-        card.style.setProperty('--y', `${(y / rect.height) * 100}%`);
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 15;
-        const rotateY = (centerX - x) / 15;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
     });
 });
 
