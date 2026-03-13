@@ -236,6 +236,27 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// Button Click Feedbacks (Haptics for Mobile)
+document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('click', () => {
+        if (navigator.vibrate && isTouchDevice) {
+            navigator.vibrate(20); // Subtle 20ms pulse
+        }
+    });
+});
+
+// Close mobile menu on scroll
+let lastScrollY = window.scrollY;
+window.addEventListener('scroll', () => {
+    if (Math.abs(window.scrollY - lastScrollY) > 50 && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.setAttribute('data-lucide', 'menu');
+        lucide.createIcons();
+    }
+    lastScrollY = window.scrollY;
+});
+
 // Enhanced Intersection Observer for Reveals
 const obsOptions = {
     threshold: 0.15,
@@ -247,6 +268,9 @@ const revealObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
             
+            // Add slight haptic when section reveals (optional, maybe too much)
+            // if (isTouchDevice && navigator.vibrate) navigator.vibrate(5);
+
             if (entry.target.classList.contains('stat-number')) {
                 animateCounter(entry.target);
             }

@@ -239,8 +239,29 @@ h1, h2, h3, h4, h5, h6 {
   transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.reveal.active .split-text span {
-  transform: translateY(0);
+/* Glass Shimmer Effect */
+.glass.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transform: skewX(-25deg);
+  animation: glass-shimmer 2s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes glass-shimmer {
+  to {
+    left: 150%;
+  }
 }
 
 /* Image Spotlight Effect */
@@ -854,6 +875,29 @@ footer {
     bottom: 20px;
     right: 15px;
     gap: 12px;
+    animation: fab-slide-in 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+  
+  @keyframes fab-slide-in {
+    from { transform: translateX(100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  /* Pulse for WhatsApp on mobile */
+  .fab-whatsapp {
+    animation: whatsapp-pulse 2s infinite;
+  }
+
+  @keyframes whatsapp-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  }
+
+  /* Tactile Tap Feedback */
+  .service-card:active, .testimonial-card:active, .gallery-item:active {
+    transform: scale(0.97) !important;
+    transition: transform 0.1s ease;
   }
   
   .fab-button {
