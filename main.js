@@ -48,15 +48,44 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// Interactive Background Particles (Only on Desktop for performance)
-if (!isTouchDevice) {
-    const canvas = document.createElement('canvas');
-    canvas.id = 'bg-particles';
-    document.body.appendChild(canvas);
-    const ctx = canvas.getContext('2d');
 
-    let particles = [];
-    const particleCount = 60;
+// Swipe functionality for Mobile Menu
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+    const swipeThreshold = 50; 
+    // Swipe Right -> Close Menu
+    if (touchEndX > touchStartX + swipeThreshold) {
+        if (navLinks && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                icon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            }
+        }
+    }
+}
+
+// Interactive Background Particles
+const canvas = document.createElement('canvas');
+canvas.id = 'bg-particles';
+document.body.appendChild(canvas);
+const ctx = canvas.getContext('2d');
+
+let particles = [];
+// Reduce particle count on mobile for performance, keep it rich on desktop
+const particleCount = isTouchDevice ? 25 : 60;
 
     function initParticles() {
         canvas.width = window.innerWidth;
@@ -95,68 +124,20 @@ if (!isTouchDevice) {
     animateParticles();
     window.addEventListener('resize', initParticles);
 
-    // Custom Cursor
-    const cursorDot = document.createElement('div');
-    const cursorOutline = document.createElement('div');
-    cursorDot.className = 'cursor-dot';
-    cursorOutline.className = 'cursor-outline';
-    document.body.appendChild(cursorDot);
-    document.body.appendChild(cursorOutline);
-
-    window.addEventListener('mousemove', (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
-
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
-
-        cursorOutline.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
-        }, { duration: 500, fill: "forwards" });
-    });
-
-    // Interactive Image Spotlight tracking
-    document.querySelectorAll('.gallery-item, .service-detail img').forEach(item => {
-        item.addEventListener('mousemove', (e) => {
-            const rect = item.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            item.style.setProperty('--mouse-x', `${x}px`);
-            item.style.setProperty('--mouse-y', `${y}px`);
-        });
-    });
-
-    // Cursor Scale & Magnetic Interaction
-    const interactiveElements = document.querySelectorAll('a, button, .service-card, .gallery-item, .stat-card');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursorOutline.style.width = '60px';
-            cursorOutline.style.height = '60px';
-            cursorOutline.style.backgroundColor = 'rgba(34, 197, 94, 0.1)';
-            cursorDot.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursorOutline.style.width = '40px';
-            cursorOutline.style.height = '40px';
-            cursorOutline.style.backgroundColor = 'transparent';
-            cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
-        });
-    });
-
     // Magnetic Buttons & 3D Tilt for Cards
-    const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .logo, .nav-links li a');
-    magneticElements.forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+    if (!isTouchDevice) {
+        const magneticElements = document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta, .logo, .nav-links li a');
+        magneticElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = `translate(0px, 0px)`;
+            });
         });
-        el.addEventListener('mouseleave', () => {
-            el.style.transform = `translate(0px, 0px)`;
-        });
-    });
 
     // 3D Tilt and Mouse Glow for Glass Cards
     const glassCards = document.querySelectorAll('.glass, .glass-premium');
@@ -183,6 +164,8 @@ if (!isTouchDevice) {
     });
 }
 
+
+
 // Button Ripple Effect
 document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(button => {
     button.addEventListener('pointerdown', function(e) {
@@ -200,19 +183,7 @@ document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(butt
     });
 });
 
-// Header Text Split Animation
-const headers = document.querySelectorAll('h1, h2');
-headers.forEach(header => {
-    const text = header.textContent;
-    header.innerHTML = '';
-    const words = text.split(' ');
-    words.forEach(word => {
-        const span = document.createElement('span');
-        span.className = 'split-text';
-        span.innerHTML = `<span style="display:inline-block">${word}</span>&nbsp;`;
-        header.appendChild(span);
-    });
-});
+
 
 // Scroll Progress Bar
 const progressBar = document.createElement('div');
@@ -257,6 +228,11 @@ window.addEventListener('scroll', () => {
     lastScrollY = window.scrollY;
 });
 
+const obsOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+};
+
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -276,7 +252,7 @@ const revealObserver = new IntersectionObserver((entries) => {
     });
 }, obsOptions);
 
-const revealElements = document.querySelectorAll('.service-card, .feature-card, .gallery-item, .testimonial-card, .section-header, .about-content, .about-image, .stat-number, .stat-card, footer, h1, h2, .service-detail');
+const revealElements = document.querySelectorAll('.service-card, .feature-card, .gallery-item, .testimonial-card, .section-header, .founder-content, .founder-image-wrapper, .stat-number, .stat-card, footer, h1, h2, .service-detail');
 revealElements.forEach((el, index) => {
     el.classList.add('reveal');
     el.style.transitionDelay = `${(index % 3) * 0.1}s`;
@@ -320,3 +296,102 @@ window.addEventListener('scroll', () => {
         heroVideo.style.filter = `blur(${scrollValue * 0.01}px)`;
     }
 });
+
+// Timeline Scroll Animation
+const timelineContainer = document.getElementById('timeline-container');
+const timelineProgress = document.getElementById('timeline-progress');
+const timelineItems = document.querySelectorAll('.timeline-item');
+
+if (timelineContainer && timelineProgress) {
+    window.addEventListener('scroll', () => {
+        const rect = timelineContainer.getBoundingClientRect();
+        const containerTop = rect.top + window.scrollY;
+        
+        // Offset start to when container is in middle of viewport
+        const startViewportOffset = window.innerHeight * 0.6;
+        
+        // Calculate progress
+        let scrollPos = window.scrollY + startViewportOffset;
+        let progress = 0;
+        
+        if (scrollPos > containerTop) {
+            progress = ((scrollPos - containerTop) / rect.height) * 100;
+        }
+        
+        // Bound between 0 and 100
+        progress = Math.max(0, Math.min(100, progress));
+        timelineProgress.style.height = `${progress}%`;
+        
+        // Activate timeline items based on line progress
+        let activeCount = 0;
+        timelineItems.forEach((item, index) => {
+             // Approximate each item's vertical position percentage in the container
+            const itemTriggerPoint = (index / timelineItems.length) * 100;
+            if (progress > itemTriggerPoint + 5) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    });
+}
+// Custom Interactive Cursor
+if (!isTouchDevice) {
+    document.body.classList.add('custom-cursor-active');
+    
+    const cursorDot = document.createElement('div');
+    cursorDot.className = 'cursor-dot';
+    document.body.appendChild(cursorDot);
+    
+    const cursorOutline = document.createElement('div');
+    cursorOutline.className = 'cursor-outline';
+    document.body.appendChild(cursorOutline);
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let outlineX = mouseX;
+    let outlineY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+    });
+
+    const animateCursor = () => {
+        let distX = mouseX - outlineX;
+        let distY = mouseY - outlineY;
+        
+        outlineX += distX * 0.2;
+        outlineY += distY * 0.2;
+        
+        cursorOutline.style.left = `${outlineX}px`;
+        cursorOutline.style.top = `${outlineY}px`;
+        
+        requestAnimationFrame(animateCursor);
+    };
+    animateCursor();
+
+    // Setup Hover effect listeners
+    const setupCursorHover = () => {
+        const interactiveElements = document.querySelectorAll('a, button, .glass, .glass-premium, .nav-cta, input, select, textarea');
+        
+        interactiveElements.forEach(el => {
+            // Remove listeners if they already exist to avoid duplicates
+            el.removeEventListener('mouseenter', handleMouseEnter);
+            el.removeEventListener('mouseleave', handleMouseLeave);
+            
+            el.addEventListener('mouseenter', handleMouseEnter);
+            el.addEventListener('mouseleave', handleMouseLeave);
+        });
+    };
+    
+    const handleMouseEnter = () => cursorOutline.classList.add('hovering');
+    const handleMouseLeave = () => cursorOutline.classList.remove('hovering');
+
+    setupCursorHover();
+    // Re-bind when URL routing happens
+    window.addEventListener('popstate', () => setTimeout(setupCursorHover, 500));
+}
