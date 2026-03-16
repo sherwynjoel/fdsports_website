@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Projects | FD Sports Infrastructure</title>
-    <meta name="description" content="Explore our completed sports infrastructure projects across South India - Football Turfs, Pickleball Courts, Badminton, and more.">
+    <meta name="description"
+        content="Explore our completed sports infrastructure projects across South India - Football Turfs, Pickleball Courts, Badminton, and more.">
+
+    <!-- Standard SEO -->
+    <meta name="keywords"
+        content="Sports Infrastructure, Football Turf Construction, Pickleball Court, Badminton Court Construction, Cricket Nets, Sports Facility Building, South India, FD Sports">
+    <meta name="author" content="FD Sports">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Web Preview (Facebook, LinkedIn, Discord) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fdsports.in/projects.html">
+    <meta property="og:title" content="Our Projects Portfolio | FD Sports">
+    <meta property="og:description"
+        content="South India's leading sports infrastructure experts specializing in Football Turf, Pickleball, Badminton, and Cricket Nets construction.">
+    <meta property="og:image"
+        content="https://fdsports.in/projects.htmlimages/hero_turf_construction_1773410903447.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://fdsports.in/projects.html">
+    <meta name="twitter:title" content="Our Projects Portfolio | FD Sports">
+    <meta name="twitter:description" content="South India's premier sports infrastructure construction company.">
+    <meta name="twitter:image"
+        content="https://fdsports.in/projects.htmlimages/hero_turf_construction_1773410903447.png">
+
+    <link rel="canonical" href="https://fdsports.in/projects.html">
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" type="image/png" href="/images/logo.png">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
     <nav id="navbar" class="scrolled">
         <a href="index.html" class="logo">
@@ -32,9 +60,40 @@
 
     <header class="page-header">
         <h1>Our Work in <span class="green-text">Action</span></h1>
-        <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto 40px;">Showcasing premier sports arenas built with excellence across South India.</p>
-        
-        <div class="filter-group" style="display: flex; gap: 15px; justify-content: center; margin-bottom: 60px; flex-wrap: wrap;">
+        <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto 40px;">Showcasing premier sports arenas
+            built with excellence across South India.</p>
+
+        <div class="video-showcase-grid"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto 50px; padding: 0 20px;">
+            <div
+                style="border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-border); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);">
+                <video class="showcase-video" src="./images/projects_showcase.mp4" autoplay loop muted playsinline
+                    style="width: 100%; display: block; object-fit: cover;"></video>
+            </div>
+            <div
+                style="border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-border); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);">
+                <video class="showcase-video" src="./images/projects_showcase_2.mp4" autoplay loop muted playsinline
+                    style="width: 100%; display: block; object-fit: cover;"></video>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const videos = document.querySelectorAll('.showcase-video');
+                videos.forEach(video => {
+                    video.addEventListener('timeupdate', () => {
+                        // Loop back to start if it hits 6 seconds for each video specifically
+                        if (video.currentTime >= 6) {
+                            video.currentTime = 0;
+                            video.play();
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <div class="filter-group"
+            style="display: flex; gap: 15px; justify-content: center; margin-bottom: 60px; flex-wrap: wrap;">
             <button class="btn btn-secondary filter-btn" data-filter="all">All Projects</button>
             <button class="btn btn-secondary filter-btn" data-filter="football">Football Turfs</button>
             <button class="btn btn-secondary filter-btn" data-filter="pickleball">Pickleball</button>
@@ -48,33 +107,38 @@
             <div class="gallery-item glass-premium" data-category="football">
                 <img src="/images/hero_turf_construction_1773410903447.png" alt="Project">
                 <div class="gallery-overlay">
-                    <h4>Chennai Pro Turf</h4>
-                    <p><i data-lucide="map-pin"></i> Chennai, Tamil Nadu</p>
-                    <p style="font-size: 0.8rem; margin-top: 5px;">FIFA Quality Pro surface with specialized drainage.</p>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 5px;">Football Turf Construction in Chennai</h4>
+                    <p style="font-weight: 700; color: var(--accent-green);">Chennai Pro Turf</p>
+                    <p><i data-lucide="map-pin"></i> Tamil Nadu</p>
+                    <p style="font-size: 0.8rem; margin-top: 5px;">FIFA Quality Pro surface with specialized drainage.
+                    </p>
                 </div>
             </div>
             <div class="gallery-item glass-premium" data-category="pickleball">
                 <img src="/images/pickleball_court_construction_1773410922845.png" alt="Project">
                 <div class="gallery-overlay">
-                    <h4>Bangalore Speed Court</h4>
-                    <p><i data-lucide="map-pin"></i> Bangalore, Karnataka</p>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 5px;">Pickleball Court Construction in Bangalore</h4>
+                    <p style="font-weight: 700; color: var(--accent-green);">Bangalore Speed Court</p>
+                    <p><i data-lucide="map-pin"></i> Karnataka</p>
                     <p style="font-size: 0.8rem; margin-top: 5px;">Tournament-grade pickleball surfacing.</p>
                 </div>
             </div>
             <div class="gallery-item glass-premium" data-category="badminton">
                 <img src="/images/badminton_court_interior_1773410942740.png" alt="Project">
                 <div class="gallery-overlay">
-                    <h4>Hyderabad Elite Academy</h4>
-                    <p><i data-lucide="map-pin"></i> Hyderabad, Telangana</p>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 5px;">Badminton Court Builders in Hyderabad</h4>
+                    <p style="font-weight: 700; color: var(--accent-green);">Hyderabad Elite Academy</p>
+                    <p><i data-lucide="map-pin"></i> Telangana</p>
                     <p style="font-size: 0.8rem; margin-top: 5px;">Synthetic matting for professional training.</p>
                 </div>
             </div>
             <!-- More mock items -->
             <div class="gallery-item glass-premium" data-category="cricket">
-                <img src="/images/hero_turf_construction_1773410903447.png" alt="Project" style="filter: hue-rotate(90deg);">
+                <img src="/images/cricket_nets.png" alt="Project">
                 <div class="gallery-overlay">
-                    <h4>Kochi Cricket Arena</h4>
-                    <p><i data-lucide="map-pin"></i> Kochi, Kerala</p>
+                    <h4 style="font-size: 1.1rem; margin-bottom: 5px;">Cricket Net Installation in Kochi</h4>
+                    <p style="font-weight: 700; color: var(--accent-green);">Kochi Cricket Arena</p>
+                    <p><i data-lucide="map-pin"></i> Kerala</p>
                     <p style="font-size: 0.8rem; margin-top: 5px;">Multi-lane practice nets with concrete pitches.</p>
                 </div>
             </div>
@@ -89,7 +153,8 @@
                     FD <span>SPORTS</span>
                 </a>
                 <p style="color: var(--text-gray); max-width: 400px;">
-                    South India's premier sports infrastructure construction company. Expert solutions for Football, Pickleball, Badminton, and more.
+                    South India's premier sports infrastructure construction company. Expert solutions for Football,
+                    Pickleball, Badminton, and more.
                 </p>
             </div>
             <div class="footer-col">
@@ -108,18 +173,21 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 FD Sports. All Rights Reserved. | Powered by <a href="https://thearktech.in" target="_blank" style="color: var(--accent-green); text-decoration: none;">ArkTech</a></p>
+            <p>&copy; 2026 FD Sports. All Rights Reserved. | Powered by <a href="https://thearktech.in" target="_blank"
+                    style="color: var(--accent-green); text-decoration: none;">ArkTech</a></p>
         </div>
     </footer>
 
     <div class="fab-container">
-        <a href="https://youtube.com/@fdsportsinfra?si=jat_fXz1rpy9i_Sw" class="fab-button fab-youtube" target="_blank" aria-label="YouTube">
+        <a href="https://youtube.com/@fdsportsinfra?si=jat_fXz1rpy9i_Sw" class="fab-button fab-youtube" target="_blank"
+            aria-label="YouTube">
             <i data-lucide="youtube"></i>
         </a>
         <a href="https://wa.me/919629200765" class="fab-button fab-whatsapp" target="_blank" aria-label="WhatsApp">
             <i data-lucide="message-circle"></i>
         </a>
-        <a href="https://www.instagram.com/fdsports.in?igsh=cXFwOG41d2dzcW51" class="fab-button fab-instagram" target="_blank" aria-label="Instagram">
+        <a href="https://www.instagram.com/fdsports.in?igsh=cXFwOG41d2dzcW51" class="fab-button fab-instagram"
+            target="_blank" aria-label="Instagram">
             <i data-lucide="instagram"></i>
         </a>
         <a href="tel:+919629200765" class="fab-button fab-call" aria-label="Call Us">
@@ -132,7 +200,7 @@
         // Simple client-side filtering
         const buttons = document.querySelectorAll('.filter-btn');
         const items = document.querySelectorAll('.gallery-item');
-        
+
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const filter = btn.getAttribute('data-filter');
@@ -149,4 +217,5 @@
         });
     </script>
 </body>
+
 </html>

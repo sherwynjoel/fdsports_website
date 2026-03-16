@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Montserrat:ital,wght@0,800;0,900;1,800;1,900&display=swap');
 
 :root {
   --bg-dark: #070a09;
@@ -283,14 +283,17 @@ nav.scrolled {
 }
 
 .logo {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
   color: var(--text-white);
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 12px;
+  letter-spacing: -0.5px;
 }
 
 .logo img {
