@@ -420,76 +420,48 @@
 
     <style>
         .process-container {
-            display: flex;
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
-            gap: 50px;
-            align-items: flex-start;
             padding: 40px 20px;
-        }
-        .process-image-container {
-            flex: 1;
-            position: sticky;
-            top: 100px;
-            height: 60vh;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-        .process-image-container img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .process-steps-container {
-            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 20px;
             padding-bottom: 20vh;
         }
         .process-step-card {
-            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px;
-            opacity: 0.4;
-            transform: translateX(20px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+            border-radius: 32px;
+            padding: 40px 30px;
+            position: sticky;
             overflow: hidden;
-        }
-        .process-step-card.active {
-            opacity: 1;
-            transform: translateX(0);
-            border-color: var(--accent-green);
-            background: rgba(34, 197, 94, 0.05);
-            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: var(--text-white);
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .process-step-card::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            background: var(--accent-green);
-            transform: scaleY(0);
-            transition: transform 0.4s ease;
-            transform-origin: top;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 15, 25, 0.95) 0%, rgba(10, 15, 25, 0.6) 100%);
+            z-index: 0;
+            transition: opacity 0.3s ease;
         }
-        .process-step-card.active::before {
-            transform: scaleY(1);
+        .process-step-card:hover::before {
+            background: linear-gradient(135deg, rgba(10, 15, 25, 0.9) 0%, rgba(10, 15, 25, 0.4) 100%);
         }
         .step-number {
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 800;
-            color: rgba(255, 255, 255, 0.06);
+            color: rgba(34, 197, 94, 0.1);
             position: absolute;
-            top: -15px;
+            top: -10px;
             right: 15px;
             z-index: 0;
             font-family: 'Outfit', sans-serif;
@@ -503,7 +475,7 @@
             font-weight: 600;
         }
         .step-list {
-            color: var(--text-gray);
+            color: #d1d5db;
             margin-left: 20px;
             line-height: 1.8;
             z-index: 1;
@@ -512,44 +484,10 @@
         .step-list li {
             margin-bottom: 8px;
         }
-        @media (max-width: 900px) {
-            .process-container {
-                flex-direction: column;
-            }
-            .process-image-container {
-                flex: none;
-                position: sticky;
-                top: 80px; 
-                height: 35vh;
-                width: calc(100% + 40px);
-                margin-left: -20px;
-                margin-bottom: 20px;
-                z-index: 10;
-                opacity: 1;
-                background-color: #0a0f19;
-                border-radius: 0;
-                border: none;
-                box-shadow: 0 -80px 0 #0a0f19, 0 30px 50px rgba(10, 15, 25, 1);
-            }
-            .process-steps-container {
-                position: relative;
-                z-index: 1;
-                margin-top: 0;
-                padding-top: 0;
-            }
-            .process-step-card {
-                background: rgba(255, 255, 255, 0.03);
-                backdrop-filter: none;
-                border: 1px solid var(--glass-border);
-            }
-            .process-step-card.active {
-                background: rgba(34, 197, 94, 0.05);
-            }
-        }
     </style>
 
     <section id="construction-process" class="glass-dark" style="position: relative; padding-top: 80px;">
-        <div class="section-header" style="text-align: center; margin-bottom: 20px;">
+        <div class="section-header" style="text-align: center; margin-bottom: 40px;">
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
             </style>
@@ -558,160 +496,108 @@
         </div>
 
         <div class="process-container">
-            <div class="process-image-container">
-                <img id="process-sticky-img" src="/images/site_inspection.png" alt="Construction Process Phase">
-            </div>
-
-            <div class="process-steps-container">
-                <div class="process-step-card" data-img="/images/site_inspection.png">
-                    <div class="step-number">01</div>
-                    <div class="step-title">1. Site Inspection & Verification</div>
-                    <ul class="step-list">
+            <div class="process-step-card" style="background-image: url('/images/site_inspection.png'); background-position: center 70%; top: 120px; border-color: var(--accent-green);">
+                <div class="step-number">01</div>
+                <div class="step-title">1. Site Inspection & Verification</div>
+                <ul class="step-list">
                         <li>Analyze land condition, soil type, and dimensions</li>
                         <li>Check drainage, slope, and accessibility</li>
                         <li>Finalize layout and project feasibility</li>
                     </ul>
-                </div>
-                
-                <div class="process-step-card" data-img="/images/ground_preparation.png">
-                    <div class="step-number">02</div>
-                    <div class="step-title">2. Ground Cleaning & Preparation</div>
-                    <ul class="step-list">
+            </div>
+            <div class="process-step-card" style="background-image: url('/images/ground_preparation.png'); top: 140px; border-color: var(--glass-border);">
+                <div class="step-number">02</div>
+                <div class="step-title">2. Ground Cleaning & Preparation</div>
+                <ul class="step-list">
                         <li>Remove debris, vegetation, and unwanted materials</li>
                         <li>Level the surface using machinery</li>
                         <li>Mark boundaries and construction area</li>
                     </ul>
-                </div>
-
-                <div class="process-step-card" data-img="/images/excavation.png">
-                    <div class="step-number">03</div>
-                    <div class="step-title">3. Excavation & Earthwork</div>
-                    <ul class="step-list">
+            </div>
+            <div class="process-step-card" style="background-image: url('/images/excavation.png'); top: 160px; border-color: var(--glass-border);">
+                <div class="step-number">03</div>
+                <div class="step-title">3. Excavation & Earthwork</div>
+                <ul class="step-list">
                         <li>Excavate the ground to required depth</li>
                         <li>Prepare base level for foundation</li>
                         <li>Ensure proper slope for water drainage</li>
                     </ul>
-                </div>
-
-                <div class="process-step-card" data-img="/images/sub_base.png">
-                    <div class="step-number">04</div>
-                    <div class="step-title">4. Sub-Base Construction</div>
-                    <ul class="step-list">
+            </div>
+            <div class="process-step-card" style="background-image: url('/images/sub_base.png'); top: 180px; border-color: var(--glass-border);">
+                <div class="step-number">04</div>
+                <div class="step-title">4. Sub-Base Construction</div>
+                <ul class="step-list">
                         <li>Lay gravel/aggregate layers</li>
                         <li>Compact the base for strength and stability</li>
                         <li>Install drainage system (important for turf life)</li>
                     </ul>
-                </div>
-
-                <div class="process-step-card" data-img="/images/foundation.png">
-                    <div class="step-number">05</div>
-                    <div class="step-title">5. Foundation (Basement Work)</div>
-                    <ul class="step-list">
+            </div>
+            <div class="process-step-card" style="background-image: url('/images/foundation.png'); top: 200px; border-color: var(--glass-border);">
+                <div class="step-number">05</div>
+                <div class="step-title">5. Foundation (Basement Work)</div>
+                <ul class="step-list">
                         <li>Add crushed stone layers</li>
                         <li>Level and compact thoroughly</li>
                         <li>Create a solid, long-lasting base</li>
                     </ul>
-                </div>
-
-                <div class="process-step-card" data-img="/images/structural_work.png">
-                    <div class="step-number">06</div>
-                    <div class="step-title">6. Structural Work (Columns & Frame)</div>
-                    <ul class="step-list">
+            </div>
+            <div class="process-step-card" style="background-image: url('/images/structural_work.png'); top: 220px; border-color: var(--glass-border);">
+                <div class="step-number">06</div>
+                <div class="step-title">6. Structural Work (Columns & Frame)</div>
+                <ul class="step-list">
                         <li>Install poles/columns (for fencing or roofing if needed)</li>
                         <li>Build support structures for nets or roofing</li>
                         <li>Ensure alignment and durability</li>
                     </ul>
-                </div>
-
-                <div class="process-step-card" data-img="/images/shock_pad.png">
-                    <div class="step-number">07</div>
-                    <div class="step-title">7. Shock Pad Installation (Premium)</div>
-                    <ul class="step-list">
+            </div>
+            <div class="process-step-card" style="background-image: url('/images/shock_pad.png'); top: 240px; border-color: var(--glass-border);">
+                <div class="step-number">07</div>
+                <div class="step-title">7. Shock Pad Installation (Premium)</div>
+                <ul class="step-list">
                         <li>Lay shock-absorbing layer</li>
                         <li>Improves player comfort and safety</li>
                         <li>Enhances turf performance</li>
                     </ul>
-                </div>
-
-                <div class="process-step-card" data-img="/images/multisports_turf.png">
-                    <div class="step-number">08</div>
-                    <div class="step-title">8. Artificial Turf & Infill Installation</div>
-                    <ul class="step-list">
+            </div>
+            <div class="process-step-card" style="background-image: url('/images/multisports_turf.png'); top: 260px; border-color: var(--glass-border);">
+                <div class="step-number">08</div>
+                <div class="step-title">8. Artificial Turf & Infill Installation</div>
+                <ul class="step-list">
                         <li>Roll out synthetic turf carpet</li>
                         <li>Cut and fit according to layout</li>
                         <li>Join seams professionally</li>
                         <li>Add silica sand and rubber granules in-fill</li>
                     </ul>
-                </div>
-
-                <div class="process-step-card" data-img="/images/cricket_nets.png">
-                    <div class="step-number">09</div>
-                    <div class="step-title">9. Fencing & Net Installation</div>
-                    <ul class="step-list">
+            </div>
+            <div class="process-step-card" style="background-image: url('/images/cricket_nets.png'); top: 280px; border-color: var(--glass-border);">
+                <div class="step-number">09</div>
+                <div class="step-title">9. Fencing & Net Installation</div>
+                <ul class="step-list">
                         <li>Install perimeter fencing</li>
                         <li>Add sports nets (cricket, football, etc.)</li>
                         <li>Ensure safety and containment</li>
                     </ul>
-                </div>
-
-                <div class="process-step-card" data-img="/images/badminton_court_interior_1773410942740.png">
-                    <div class="step-number">10</div>
-                    <div class="step-title">10. Lighting & Electrical Setup</div>
-                    <ul class="step-list">
+            </div>
+            <div class="process-step-card" style="background-image: url('/images/badminton_court_interior_1773410942740.png'); top: 300px; border-color: var(--glass-border);">
+                <div class="step-number">10</div>
+                <div class="step-title">10. Lighting & Electrical Setup</div>
+                <ul class="step-list">
                         <li>Install floodlights (if required)</li>
                         <li>Setup wiring and control panels</li>
                         <li>Ensure proper illumination for night play</li>
                     </ul>
-                </div>
-
-                <div class="process-step-card" data-img="/images/handover_original.png">
-                    <div class="step-number">11</div>
-                    <div class="step-title">11. Final Inspection & Handover</div>
-                    <ul class="step-list">
+            </div>
+            <div class="process-step-card" style="background-image: url('/images/handover_original.png'); top: 320px; border-color: var(--glass-border);">
+                <div class="step-number">11</div>
+                <div class="step-title">11. Final Inspection & Handover</div>
+                <ul class="step-list">
                         <li>Quality check of entire construction</li>
                         <li>Test drainage, surface, and safety</li>
                         <li>Final cleaning and client handover</li>
                     </ul>
-                </div>
-
             </div>
         </div>
     </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const stepCards = document.querySelectorAll('.process-step-card');
-            const stickyImg = document.getElementById('process-sticky-img');
-
-            if (stepCards.length === 0 || !stickyImg) return;
-
-            const observerOptions = {
-                root: null,
-                rootMargin: '-30% 0px -40% 0px',
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        stepCards.forEach(card => card.classList.remove('active'));
-                        entry.target.classList.add('active');
-                        
-                        const newImgSrc = entry.target.getAttribute('data-img');
-                        if (stickyImg.getAttribute('src') !== newImgSrc) {
-                            stickyImg.style.opacity = '0.2';
-                            setTimeout(() => {
-                                stickyImg.setAttribute('src', newImgSrc);
-                                stickyImg.style.opacity = '1';
-                            }, 250);
-                        }
-                    }
-                });
-            }, observerOptions);
-
-            stepCards.forEach(card => observer.observe(card));
-        });
-    </script>
 
     <section id="testimonials">
         <div class="section-header" style="text-align: center;">
