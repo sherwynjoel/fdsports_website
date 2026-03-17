@@ -129,12 +129,7 @@
         <div class="contact-layout-grid">
             <div class="glass-premium contact-card">
                 <h2 style="margin-bottom: 30px;">Request a <span class="green-text">Quote</span></h2>
-                <form id="contact-form" action="https://formsubmit.co/fdinfrasales@gmail.com" method="POST">
-                    <!-- FormSubmit Configuration -->
-                    <input type="hidden" name="_subject" value="New Inquiry from FD Sports Contact Form!">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    
+                <form id="contact-form">
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Full Name</label>
@@ -239,5 +234,29 @@
 
     <script type="module" src="/main.js"></script>
 
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get all form data
+            const formData = new FormData(this);
+            const name = formData.get('Name');
+            const phone = formData.get('Phone');
+            const email = formData.get('Email');
+            const projectType = formData.get('Project Type');
+            const message = formData.get('Message');
+            
+            // Format WhatsApp Message
+            const whatsappNumber = "919629200765"; // Your FD Sports number
+            const whatsappText = `*New Inquiry from FD Sports Website*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Email:* ${email}%0A*Project Type:* ${projectType}%0A*Message:* ${message}`;
+            
+            // Construct Link and Open
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
+            window.open(whatsappURL, '_blank');
+            
+            // Optional: reset form after sending
+            this.reset();
+        });
+    </script>
 </body>
 </html>

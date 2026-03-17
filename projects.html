@@ -172,55 +172,23 @@
             
             <!-- Reel 1 -->
             <div class="reel-container" style="position: relative; border-radius: 20px; overflow: hidden; background: #000; padding-top: 177.77%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">
-                <iframe src="https://www.instagram.com/reel/DVv3LY3Ev_N/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+                <iframe src="https://www.instagram.com/reel/DVv3LY3Ev_N/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" scrolling="no" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true"></iframe>
             </div>
 
             <!-- Reel 2 -->
             <div class="reel-container" style="position: relative; border-radius: 20px; overflow: hidden; background: #000; padding-top: 177.77%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">
-                <iframe src="https://www.instagram.com/reel/DQ9VBPvkoQP/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+                <iframe src="https://www.instagram.com/reel/DQ9VBPvkoQP/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" scrolling="no" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true"></iframe>
             </div>
 
             <!-- Reel 3 -->
             <div class="reel-container" style="position: relative; border-radius: 20px; overflow: hidden; background: #000; padding-top: 177.77%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">
-                <iframe src="https://www.instagram.com/reel/DVL1V0eEpwn/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+                <iframe src="https://www.instagram.com/reel/DVL1V0eEpwn/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" scrolling="no" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true"></iframe>
             </div>
 
         </div>
     </section>
 
     <script>
-        // Inline script exclusively for handling interactive manual playback of Reels on card-tap
-        function toggleReel(overlay) {
-            const video = overlay.previousElementSibling;
-            const playIcon = overlay.querySelector('.play-icon');
-            
-            if (!video.paused) {
-                video.pause();
-                overlay.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.8) 100%)';
-                playIcon.style.display = 'block';
-                video.muted = true; // safe mute
-            } else {
-                // Pause all other videos
-                document.querySelectorAll('.reel-container video').forEach(v => {
-                    if (v !== video && !v.paused) {
-                        v.pause();
-                        v.nextElementSibling.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.8) 100%)';
-                        v.nextElementSibling.querySelector('.play-icon').style.display = 'block';
-                    }
-                });
-
-                // Play this instance
-                video.muted = false; // Turn on sound for immersion
-                video.play().catch(e => {
-                    // Try playing muted if browser blocks unmuted playback
-                    video.muted = true;
-                    video.play();
-                });
-                overlay.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.8) 100%)';
-                playIcon.style.display = 'none';
-            }
-        }
-        
         // Ensure lucid icons reload for dynamic content
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
