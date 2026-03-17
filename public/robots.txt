@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://fdsports.in/sitemap.xml
+
+# Block build artifacts
+Disallow: /dist/
+Disallow: /node_modules/
