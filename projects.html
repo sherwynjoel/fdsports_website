@@ -137,6 +137,15 @@
                     <p style="font-size: 0.8rem; margin-top: 5px;">Synthetic matting for professional training.</p>
                 </div>
             </div>
+            <div class="gallery-item glass-premium" data-category="badminton">
+                <img loading="lazy" src="/images/under_construction_badminton.png" alt="Sports Turf and Court Construction Project - South India">
+                <div class="gallery-overlay">
+                    <h4 style="font-size: 1.1rem; margin-bottom: 5px;">Premium Indoor Badminton Complex</h4>
+                    <p style="font-weight: 700; color: var(--accent-green);">Ongoing Construction</p>
+                    <p><i data-lucide="map-pin"></i> South India</p>
+                    <p style="font-size: 0.8rem; margin-top: 5px;">Double-court acrylic surfacing with professional roofing structure.</p>
+                </div>
+            </div>
             <!-- More mock items -->
             <div class="gallery-item glass-premium" data-category="cricket">
                 <img loading="lazy" src="/images/cricket_nets.png" alt="Sports Turf and Court Construction Project - South India">
@@ -149,6 +158,74 @@
             </div>
         </div>
     </section>
+
+    <section id="instagram-reels" style="padding: 60px 20px; background: rgba(0, 0, 0, 0.2); border-top: 1px solid var(--glass-border);">
+        <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+            </style>
+            <h2 style="font-size: 3rem; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1.5px;">Our Latest <span style="color: #E1306C;">Reels</span></h2>
+            <p style="color: var(--text-gray);">Watch our projects come to life. Follow <a href="https://www.instagram.com/fdsports.in?igsh=cXFwOG41d2dzcW51" target="_blank" style="color: #E1306C; text-decoration: none; font-weight: bold;">@fdsports.in</a> on Instagram.</p>
+        </div>
+        
+        <div class="reels-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 320px)); justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto;">
+            
+            <!-- Reel 1 -->
+            <div class="reel-container" style="position: relative; border-radius: 20px; overflow: hidden; background: #000; padding-top: 177.77%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">
+                <iframe src="https://www.instagram.com/reel/DVv3LY3Ev_N/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+            </div>
+
+            <!-- Reel 2 -->
+            <div class="reel-container" style="position: relative; border-radius: 20px; overflow: hidden; background: #000; padding-top: 177.77%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">
+                <iframe src="https://www.instagram.com/reel/DQ9VBPvkoQP/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+            </div>
+
+            <!-- Reel 3 -->
+            <div class="reel-container" style="position: relative; border-radius: 20px; overflow: hidden; background: #000; padding-top: 177.77%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">
+                <iframe src="https://www.instagram.com/reel/DVL1V0eEpwn/embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" frameborder="0" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        // Inline script exclusively for handling interactive manual playback of Reels on card-tap
+        function toggleReel(overlay) {
+            const video = overlay.previousElementSibling;
+            const playIcon = overlay.querySelector('.play-icon');
+            
+            if (!video.paused) {
+                video.pause();
+                overlay.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.8) 100%)';
+                playIcon.style.display = 'block';
+                video.muted = true; // safe mute
+            } else {
+                // Pause all other videos
+                document.querySelectorAll('.reel-container video').forEach(v => {
+                    if (v !== video && !v.paused) {
+                        v.pause();
+                        v.nextElementSibling.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.8) 100%)';
+                        v.nextElementSibling.querySelector('.play-icon').style.display = 'block';
+                    }
+                });
+
+                // Play this instance
+                video.muted = false; // Turn on sound for immersion
+                video.play().catch(e => {
+                    // Try playing muted if browser blocks unmuted playback
+                    video.muted = true;
+                    video.play();
+                });
+                overlay.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.8) 100%)';
+                playIcon.style.display = 'none';
+            }
+        }
+        
+        // Ensure lucid icons reload for dynamic content
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
 
     <footer>
         <div class="footer-grid">
@@ -174,7 +251,7 @@
             <div class="footer-col">
                 <h4>Connectivity</h4>
                 <p style="color: var(--text-gray); margin-bottom: 10px;">Podanur, Coimbatore</p>
-                <p style="color: var(--text-gray);">info@fdsports.com</p>
+                <p style="color: var(--text-gray);">fdinfrasales@gmail.com</p>
             </div>
         </div>
         <div class="footer-bottom">
