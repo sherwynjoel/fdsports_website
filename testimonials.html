@@ -32,42 +32,175 @@
 </head>
 <body>
     <nav id="navbar" class="scrolled">
-        <a href="index.html" class="logo">
+        <a href="/" class="logo">
             <img src="/images/logo.png" alt="FD Sports - Sports Infrastructure Construction Experts">
             FD <span>SPORTS</span>
         </a>
         <ul class="nav-links">
-            <li><a href="index.html" title="FD Sports Home Page - Best Turf Construction">Home</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="testimonials.html">Testimonials</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="/" title="FD Sports Home Page - Best Turf Construction">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/projects">Projects</a></li>
+            <li><a href="/testimonials">Testimonials</a></li>
+            <li><a href="/contact">Contact</a></li>
         </ul>
         <div style="display: flex; align-items: center; gap: 15px;">
-            <a href="/contact.html" class="nav-cta" aria-label="Schedule a Free Consultation">Free Consultation</a>
+            <a href="/contact" class="nav-cta" aria-label="Schedule a Free Consultation">Free Consultation</a>
             <button class="mobile-menu-btn" aria-label="Menu">
                 <i data-lucide="menu"></i>
             </button>
         </div>
     </nav>
 
-    <header class="page-header">
-        <h1>Client <span class="green-text">Stories</span></h1>
-        <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto 40px;">Trusted by schools, sports academies, and private institutions for over a decade.</p>
+    <style>
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background: linear-gradient(90deg, rgba(34,197,94,0.05), rgba(34,197,94,0.1) 50%, rgba(34,197,94,0.05));
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 20px 0;
+            display: flex;
+            margin-bottom: 60px;
+        }
+        .marquee {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee-scroll 25s linear infinite;
+        }
+        .marquee-item {
+            margin: 0 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-transform: uppercase;
+        }
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .stats-banner {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .stat-badge {
+            background: rgba(10, 15, 25, 0.7);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+        }
+        
+        /* Huge Quote Styling */
+        .testimonial-card {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .bg-quote-icon {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 200px;
+            height: 200px;
+            color: var(--accent-green);
+            opacity: 0.05;
+            z-index: -1;
+            transform: rotate(15deg);
+        }
+
+        /* Video Testimonials grid */
+        .video-stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+        .video-card {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            background: rgba(10, 15, 25, 0.6);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .video-card video {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        .video-overlay-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+    </style>
+
+    <header class="page-header" style="position: relative; overflow: hidden; padding-bottom: 0; margin-bottom: 0;">
+        <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 400px; background: var(--accent-green); filter: blur(150px); opacity: 0.15; border-radius: 50%; z-index: -1;"></div>
+        <h1 style="font-size: 4rem; text-transform: uppercase; letter-spacing: 1px;">Client <span class="green-text">Stories</span></h1>
+        <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto; font-size: 1.15rem;">Trusted by schools, elite sports academies, and private institutions for over a decade.</p>
+        
+        <div class="stats-banner">
+            <div class="stat-badge"><i data-lucide="check-circle" class="green-text"></i> <b>100+</b> Projects Delivered</div>
+            <div class="stat-badge"><i data-lucide="clock" class="green-text"></i> <b>10+</b> Years Experience</div>
+            <div class="stat-badge"><i data-lucide="map-pin" class="green-text"></i> <b>50+</b> Cities Covered</div>
+        </div>
+
+        <div class="marquee-container">
+            <div class="marquee">
+                <!-- Items for seamless infinite scroll -->
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Emirates Turf</div>
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Champs Court</div>
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Indian Army Base</div>
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Kochi Arena</div>
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Hyderabad Elite</div>
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Farm Pickleball</div>
+                
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Emirates Turf</div>
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Champs Court</div>
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Indian Army Base</div>
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Kochi Arena</div>
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Hyderabad Elite</div>
+                <div class="marquee-item"><i data-lucide="shield-check" class="green-text"></i> Farm Pickleball</div>
+            </div>
+        </div>
     </header>
 
-    <section id="detailed-testimonials">
+    <section id="detailed-testimonials" style="padding-top: 40px;">
         <div class="page-grid">
             <div class="testimonial-card glass-premium">
                 <div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
                 <p class="testimonial-text" style="font-size: 1.1rem; line-height: 1.8;">
-                    "We approached FD Sports for a football turf and two badminton courts for our sports academy in Chennai. Arsath's deep expertise as a coach meant the turf quality was exactly what players needed. The drainage has been flawless even during heavy monsoon rains."
+                    "We approached FD Sports for a fully enclosed multi-sport artificial turf in Podhanur. The aerial setup and the scoreboard they installed are brilliant. The drainage has been flawless even during heavy monsoon rains."
                 </p>
                 <div class="client-info">
-                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">RK</div>
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">EM</div>
                     <div>
-                        <h4 style="margin-bottom: 2px;">Rajesh Kumar</h4>
-                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Director | Chennai Pro Sports Academy</p>
+                        <h4 style="margin-bottom: 2px;">Emirates Management</h4>
+                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Owners | Emirates Multi Sport Turf, Podhanur</p>
                     </div>
                 </div>
             </div>
@@ -75,13 +208,13 @@
             <div class="testimonial-card glass-premium">
                 <div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
                 <p class="testimonial-text" style="font-size: 1.1rem; line-height: 1.8;">
-                    "The multi-sports facility built for our campus in Bangalore by FD Sports is phenomenal. From excavation to final lighting, everything was handled professionally. Highly recommended for educational institutions looking for quality."
+                    "The multi-sports facility built for us in Codissia by FD Sports is phenomenal. They installed both a high-quality football turf and premium pickleball courts with LED floodlighting. Everything was handled professionally."
                 </p>
                 <div class="client-info">
-                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">SR</div>
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">CC</div>
                     <div>
-                        <h4 style="margin-bottom: 2px;">Suresh Reddy</h4>
-                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Sports Coordinator | Bangalore International School</p>
+                        <h4 style="margin-bottom: 2px;">Champs Court</h4>
+                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Founders | Champs Court, Codissia</p>
                     </div>
                 </div>
             </div>
@@ -89,13 +222,13 @@
             <div class="testimonial-card glass-premium">
                 <div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
                 <p class="testimonial-text" style="font-size: 1.1rem; line-height: 1.8;">
-                    "Arsath's team transformed a vacant plot into a high-end pickleball and cricket net facility. Their work on the acrylic surface and net quality is the best we've seen in Hyderabad."
+                    "Arsath's team transformed our space into a high-end football and pickleball complex. Their work on the acrylic surface and turf quality is the best we've seen here in Ondipudur."
                 </p>
                 <div class="client-info">
-                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">VP</div>
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">FP</div>
                     <div>
-                        <h4 style="margin-bottom: 2px;">Vikram Prasad</h4>
-                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Founder | Elite Urban Sports</p>
+                        <h4 style="margin-bottom: 2px;">Farm Pickleball</h4>
+                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Owners | Farm Pickleball, Ondipudur</p>
                     </div>
                 </div>
             </div>
@@ -103,23 +236,111 @@
             <div class="testimonial-card glass-premium">
                 <div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
                 <p class="testimonial-text" style="font-size: 1.1rem; line-height: 1.8;">
-                    "We needed a professional skating rink with advanced coatings for our sports club in Kochi. FD Sports not only constructed it efficiently but also guided us on long-term maintenance. Exceptional service!"
+                    "We needed a professional multi-lane cricket net practice facility for our arena in Kochi. FD Sports constructed it efficiently with proper concrete pitches and guided us on maintenance. Exceptional service!"
                 </p>
                 <div class="client-info">
-                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">AN</div>
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">KC</div>
                     <div>
-                        <h4 style="margin-bottom: 2px;">Ananya Nair</h4>
-                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">CEO | Kerala Skating Club</p>
+                        <h4 style="margin-bottom: 2px;">Arena Directors</h4>
+                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Founders | Kochi Cricket Arena, Kerala</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card glass-premium">
+                <div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                <p class="testimonial-text" style="font-size: 1.1rem; line-height: 1.8;">
+                    "FD Sports completed the entire badminton matting and indoor complex for us in Hyderabad. The synthetic matting quality and court markings are outstanding — our professional training academy players love it."
+                </p>
+                <div class="client-info">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">HE</div>
+                    <div>
+                        <h4 style="margin-bottom: 2px;">Academy Head</h4>
+                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Director | Hyderabad Elite Academy, Telangana</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card glass-premium">
+                <div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                <p class="testimonial-text" style="font-size: 1.1rem; line-height: 1.8;">
+                    "FD Sports set up tournament-grade pickleball surfacing for our facility in Madukarai. The acrylic surface finish is premium and the courts meet international standards. Their team was extremely professional. Very happy!"
+                </p>
+                <div class="client-info">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">IA</div>
+                    <div>
+                        <h4 style="margin-bottom: 2px;">Unit Commander</h4>
+                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">In-Charge | Indian Army, Madukarai</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card glass-premium">
+                <div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                <p class="testimonial-text" style="font-size: 1.1rem; line-height: 1.8;">
+                    "Our cricket academy in Salem needed a proper net practice facility. FD Sports installed 6 lanes of ball-stop netting with concrete pitches and proper run-ups. The quality of the netting poles and ground prep was far better than quotes we got from others."
+                </p>
+                <div class="client-info">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">TS</div>
+                    <div>
+                        <h4 style="margin-bottom: 2px;">Thiagarajan Shanmugam</h4>
+                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Head Coach | Salem District Cricket Academy</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card glass-premium">
+                <div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                <p class="testimonial-text" style="font-size: 1.1rem; line-height: 1.8;">
+                    "The indoor badminton complex FD Sports built for our institution in Tiruppur has four courts with PU synthetic flooring. The light placement and court markings are precise. Zero complaints from our students or faculty. We will definitely work with them again."
+                </p>
+                <div class="client-info">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">PR</div>
+                    <div>
+                        <h4 style="margin-bottom: 2px;">Priya Ramasamy</h4>
+                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Principal | Tiruppur Sports Excellence School</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card glass-premium">
+                <div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+                <p class="testimonial-text" style="font-size: 1.1rem; line-height: 1.8;">
+                    "We were sceptical about the timeline, but FD Sports delivered our football turf in Erode in just 22 days. The turf pile height and rubber infill balance is perfect for 5-a-side. Post-installation support has been excellent — they respond quickly to any queries."
+                </p>
+                <div class="client-info">
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000;">JA</div>
+                    <div>
+                        <h4 style="margin-bottom: 2px;">Jegan Arumugam</h4>
+                        <p style="color: var(--accent-green); font-size: 0.8rem; font-weight: 600;">Owner | Erode Premier Football Ground</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.testimonial-card');
+            cards.forEach(card => {
+                const quoteIcon = document.createElement('i');
+                quoteIcon.setAttribute('data-lucide', 'quote');
+                quoteIcon.className = 'bg-quote-icon';
+                card.appendChild(quoteIcon);
+            });
+            // Re-initialize lucide for dynamically added icons
+            if(window.lucide) {
+                window.lucide.createIcons();
+            }
+        });
+    </script>
+
     <footer>
         <div class="footer-grid">
             <div class="footer-col" style="grid-column: span 2;">
-                <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                <a href="/" class="logo" style="margin-bottom: 20px;">
                     <img src="/images/logo.png" alt="FD Sports - Sports Infrastructure Construction Experts">
                     FD <span>SPORTS</span>
                 </a>
@@ -130,10 +351,10 @@
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="index.html" title="FD Sports Home Page - Best Turf Construction">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="/" title="FD Sports Home Page - Best Turf Construction">Home</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-col">

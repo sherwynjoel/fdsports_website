@@ -92,7 +92,21 @@
         }
         .contact-card {
             padding: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        .side-card {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+            50% { transform: translateY(-8px); box-shadow: 0 15px 25px rgba(0,0,0,0.4); }
+            100% { transform: translateY(0px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        }
+        /* Staggered float animation so they don't move exactly together */
+        .side-card:nth-child(1) { animation-delay: 0s; }
+        .side-card:nth-child(2) { animation-delay: 1.5s; }
+        .side-card:nth-child(3) { animation-delay: 3s; }
+
         .contact-icon {
             width: 50px;
             height: 50px;
@@ -116,29 +130,37 @@
             font-weight: 600;
             margin-top: 20px;
             transition: var(--transition);
+            /* Glowing pulse effect */
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
         .whatsapp-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            animation: none; /* Stop pulsing on hover */
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
         }
 
     </style>
 </head>
 <body>
     <nav id="navbar" class="scrolled">
-        <a href="index.html" class="logo">
+        <a href="/" class="logo">
             <img src="/images/logo.png" alt="FD Sports - Sports Infrastructure Construction Experts">
             FD <span>SPORTS</span>
         </a>
         <ul class="nav-links">
-            <li><a href="index.html" title="FD Sports Home Page - Best Turf Construction">Home</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="testimonials.html">Testimonials</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="/" title="FD Sports Home Page - Best Turf Construction">Home</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/projects">Projects</a></li>
+            <li><a href="/testimonials">Testimonials</a></li>
+            <li><a href="/contact">Contact</a></li>
         </ul>
         <div style="display: flex; align-items: center; gap: 15px;">
-            <a href="/contact.html" class="nav-cta" aria-label="Schedule a Free Consultation">Free Consultation</a>
+            <a href="/contact" class="nav-cta" aria-label="Schedule a Free Consultation">Free Consultation</a>
             <button class="mobile-menu-btn" aria-label="Menu">
                 <i data-lucide="menu"></i>
             </button>
@@ -189,7 +211,7 @@
                 </form>
             </div>
             <div style="display: flex; flex-direction: column; gap: 20px;">
-                <div class="glass contact-card">
+                <div class="glass contact-card side-card">
                     <div class="contact-icon"><i data-lucide="phone"></i></div>
                     <h4>Call Us</h4>
                     <p style="color: var(--text-gray); margin-top: 10px;">+91 96292 00765</p>
@@ -197,12 +219,12 @@
                         <i data-lucide="message-circle"></i> Chat on WhatsApp
                     </a>
                 </div>
-                <div class="glass contact-card">
+                <div class="glass contact-card side-card">
                     <div class="contact-icon"><i data-lucide="mail"></i></div>
                     <h4>Email Us</h4>
                     <p style="color: var(--text-gray); margin-top: 10px;">fdinfrasales@gmail.com</p>
                 </div>
-                <div class="glass contact-card">
+                <div class="glass contact-card side-card">
                     <div class="contact-icon"><i data-lucide="map-pin"></i></div>
                     <h4>Our Office</h4>
                     <p style="color: var(--text-gray); margin-top: 10px;">Arsath Mohammed<br>256/1 Thirumarai Nagar Extension,<br>Kurichi, Podanur, Coimbatore - 641008</p>
@@ -214,7 +236,7 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col" style="grid-column: span 2;">
-                <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                <a href="/" class="logo" style="margin-bottom: 20px;">
                     <img src="/images/logo.png" alt="FD Sports - Sports Infrastructure Construction Experts">
                     FD <span>SPORTS</span>
                 </a>
@@ -225,10 +247,10 @@
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="index.html" title="FD Sports Home Page - Best Turf Construction">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="/" title="FD Sports Home Page - Best Turf Construction">Home</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-col">
