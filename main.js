@@ -1,5 +1,11 @@
 // Initialize Lucide icons
-lucide.createIcons();
+document.addEventListener("DOMContentLoaded", () => {
+    if (typeof window !== 'undefined' && window.lucide) {
+        window.lucide.createIcons();
+    } else {
+        window.addEventListener('load', () => window.lucide && window.lucide.createIcons());
+    }
+});
 
 const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
